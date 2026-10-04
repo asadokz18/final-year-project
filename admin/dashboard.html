@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard — FATA University Hostel</title>
+  <link rel="icon" href="../assets/images/logo.png"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap"/>
+  <link rel="stylesheet" href="../assets/css/style.css?v=1.0.2"/>
+  <link rel="stylesheet" href="../assets/css/admin_dashboard.css?v=1.0.2"/>
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-avatar initials" id="sidebarAvatar">MA</div>
+    <div class="sidebar-name" id="sidebarName">Main Admin</div>
+    <div class="sidebar-role">Admin Panel</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section-label">Admin Panel</div>
+    <a href="../index.html" class="sidebar-link"><i class="fas fa-home"></i> Home</a>
+    <a href="#" class="sidebar-link active" onclick="showSection('dashboard',this)"><i class="fas fa-th-large"></i> Dashboard</a>
+    <a href="#" class="sidebar-link" onclick="showSection('students',this)"><i class="fas fa-users"></i> Students &amp; Faculty</a>
+    <a href="#" class="sidebar-link" onclick="showSection('rooms',this)"><i class="fas fa-building"></i> Manage Rooms</a>
+    <a href="#" class="sidebar-link" onclick="showSection('applications',this)"><i class="fas fa-file-alt"></i> Applications <span class="badge-count" id="pendingBadge">0</span></a>
+    <a href="#" class="sidebar-link" onclick="showSection('fees',this)"><i class="fas fa-money-bill-wave"></i> Fees <span class="badge-count" id="feesBadge">0</span></a>
+    <a href="#" class="sidebar-link" onclick="showSection('complaints',this)"><i class="fas fa-exclamation-circle"></i> Complaints <span class="badge-count" id="complaintsBadge">0</span></a>
+    <a href="#" class="sidebar-link" onclick="showSection('notices',this)"><i class="fas fa-bullhorn"></i> Notices</a>
+    <a href="#" class="sidebar-link" onclick="showSection('gallery',this)"><i class="fas fa-images"></i> Gallery <span class="badge-count" id="galleryBadge">0</span></a>
+    <a href="#" class="sidebar-link" onclick="showSection('profile',this)"><i class="fas fa-user-cog"></i> Admin Profile</a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="#" class="logout-btn" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+</aside>
+
+<!-- ============ MAIN CONTENT ============ -->
+<div class="main-content">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger-toggle" onclick="toggleSidebar()"><i class="fas fa-bars" id="hamIcon"></i></button>
+      <div class="topbar-title">
+        <h2 id="pageTitle">Admin Dashboard</h2>
+        <p id="pageSubtitle">Overview of hostel management</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-admin">
+        <div class="topbar-admin-avatar" id="topbarAvatar">MA</div>
+        <span class="topbar-admin-name" id="topbarName">Main Admin</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- ======== DASHBOARD SECTION ======== -->
+    <div id="sec-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card green">
+          <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
+          <div class="stat-value" id="statStudents">0</div>
+          <div class="stat-label">Total Students</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-icon"><i class="fas fa-building"></i></div>
+          <div class="stat-value" id="statRooms">0</div>
+          <div class="stat-label">Total Rooms</div>
+        </div>
+        <div class="stat-card orange">
+          <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
+          <div class="stat-value" id="statFees">Rs. 0</div>
+          <div class="stat-label">Fee Collected</div>
+        </div>
+        <div class="stat-card teal">
+          <div class="stat-icon"><i class="fas fa-door-open"></i></div>
+          <div class="stat-value" id="statAvail">0</div>
+          <div class="stat-label">Available Rooms</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
+          <div class="stat-value" id="statComplaints">0</div>
+          <div class="stat-label">Pending Complaints</div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <a href="#" class="quick-btn primary" onclick="showSection('students')"><i class="fas fa-users"></i> View Students</a>
+        <a href="#" class="quick-btn blue" onclick="showSection('rooms')"><i class="fas fa-building"></i> Manage Rooms</a>
+        <a href="#" class="quick-btn orange" onclick="showSection('applications')"><i class="fas fa-file-alt"></i> Applications</a>
+        <a href="#" class="quick-btn teal" onclick="showSection('complaints')"><i class="fas fa-exclamation-circle"></i> Complaints</a>
+        <a href="#" class="quick-btn" style="background:#198754;color:#fff" onclick="showSection('notices')"><i class="fas fa-bullhorn"></i> Post Notice</a>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div class="content-card">
+          <div class="content-card-header">
+            <h3><i class="fas fa-users"></i> Recent Students</h3>
+            <a href="#" onclick="showSection('students')">View All</a>
+          </div>
+          <div class="content-card-body" id="recentStudents"><div class="spinner"></div></div>
+        </div>
+        <div class="content-card">
+          <div class="content-card-header">
+            <h3><i class="fas fa-file-alt"></i> Recent Applications</h3>
+            <a href="#" onclick="showSection('applications')">View All</a>
+          </div>
+          <div class="content-card-body" id="recentApplications"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== STUDENTS & FACULTY SECTION ======== -->
+    <div id="sec-students" style="display:none">
+      <div class="content-card">
+        <div class="content-card-header">
+          <h3><i class="fas fa-users"></i> Registered Users</h3>
+          <div style="display:flex;gap:8px">
+            <select class="form-control" id="userTypeFilter" onchange="loadUsers()" style="width:auto;padding:8px 12px;font-size:0.88rem">
+              <option value="student">Students</option>
+              <option value="faculty">Faculty</option>
+            </select>
+          </div>
+        </div>
+        <div class="content-card-body">
+          <div class="filter-bar">
+            <input type="text" id="userSearch" placeholder="Search by name or email..." oninput="filterUsers()" />
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th><th>Photo</th><th>Name</th><th>Email</th><th>Phone</th><th>Gender</th><th>Joined</th><th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody"><tr><td colspan="8" class="no-data"><div class="spinner"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== MANAGE ROOMS SECTION ======== -->
+    <div id="sec-rooms" style="display:none">
+      <div class="content-card">
+        <div class="content-card-header">
+          <h3><i class="fas fa-building"></i> Manage Rooms</h3>
+          <div style="display:flex;gap:10px;">
+            <button class="quick-btn primary" onclick="openAddRoomModal()"><i class="fas fa-plus"></i> Add New Room</button>
+            <button class="quick-btn secondary" onclick="downloadRoomsPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+          </div>
+        </div>
+        <div class="content-card-body">
+          <div class="filter-bar">
+            <select class="form-control" id="roomHostelFilter" onchange="loadRoomsAdmin()" style="width:auto;padding:8px 12px;font-size:0.88rem">
+              <option value="">All Hostels</option>
+              <option>FAQIR IPI HOUSE</option>
+              <option>FATIMA HOUSE</option>
+              <option>KHYBER HOUSE</option>
+            </select>
+          </div>
+          <div class="rooms-manage-grid" id="roomsManageGrid"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== APPLICATIONS SECTION ======== -->
+    <div id="sec-applications" style="display:none">
+      <div class="content-card">
+        <div class="content-card-header">
+          <h3><i class="fas fa-file-alt"></i> Room Applications</h3>
+          <select class="form-control" id="appStatusFilter" onchange="loadApplications()" style="width:auto;padding:8px 12px;font-size:0.88rem">
+            <option value="">All Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+        <div class="content-card-body">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr><th>Date</th><th>User</th><th>Role</th><th>Type</th><th>Hostel — Room</th><th>Duration</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="applicationsBody"><tr><td colspan="8" class="no-data"><div class="spinner"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== FEES SECTION ======== -->
+    <div id="sec-fees" style="display:none">
+      <div class="content-card">
+        <div class="content-card-header">
+          <h3><i class="fas fa-money-bill-wave"></i> Fee Management</h3>
+          <div style="display:flex;gap:10px;">
+            <button class="quick-btn primary" onclick="openAddFeeModal()"><i class="fas fa-plus"></i> Add Fee Record</button>
+            <button class="quick-btn secondary" onclick="downloadFeesPDFAdmin()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+          </div>
+        </div>
+        <div class="content-card-body">
+          <div class="filter-bar">
+            <select id="feeRoleFilter" onchange="loadFees()" style="padding:9px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:0.88rem;background:#fff">
+              <option value="">All Roles</option>
+              <option value="Student">Students</option>
+              <option value="Faculty">Faculty</option>
+            </select>
+            <select id="feeStatusFilter" onchange="loadFees()" style="padding:9px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:0.88rem;background:#fff">
+              <option value="">All Status</option>
+              <option value="Paid">Paid</option>
+              <option value="Unpaid">Unpaid</option>
+            </select>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr><th>#</th><th>User</th><th>Role</th><th>Month/Year</th><th>Amount</th><th>Status</th><th>Receipt</th><th>Action</th></tr>
+              </thead>
+              <tbody id="feesBody"><tr><td colspan="8" class="no-data"><div class="spinner"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== COMPLAINTS SECTION ======== -->
+    <div id="sec-complaints" style="display:none">
+      <div class="content-card">
+        <div class="content-card-header">
+          <h3><i class="fas fa-exclamation-circle"></i> Complaints</h3>
+        </div>
+        <div class="content-card-body">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr><th>Date</th><th>User</th><th>Title</th><th>Description</th><th>Status</th><th>Action</th></tr>
+              </thead>
+              <tbody id="complaintsBody"><tr><td colspan="6" class="no-data"><div class="spinner"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== NOTICES SECTION ======== -->
+    <div id="sec-notices" style="display:none">
+      <div class="content-card" style="margin-bottom:20px">
+        <div class="content-card-header"><h3><i class="fas fa-bullhorn"></i> Post a Notice</h3></div>
+        <div class="content-card-body">
+          <div id="noticeAlert"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px">
+            <div class="form-group"><label>Title *</label><input type="text" class="form-control" id="noticeTitle" placeholder="Notice title"/></div>
+            <div class="form-group"><label>Priority</label>
+              <select class="form-control" id="noticePriority">
+                <option value="Normal">Normal</option>
+                <option value="Important">Important</option>
+                <option value="Urgent">Urgent</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Target Audience</label>
+              <select class="form-control" id="noticeAudience">
+                <option value="All">All</option>
+                <option value="Students">Students Only</option>
+                <option value="Faculty">Faculty Only</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Expiry Date (optional)</label><input type="date" class="form-control" id="noticeExpiry"/></div>
+            <div class="form-group full-width" style="grid-column:1/-1"><label>Message *</label><textarea class="form-control" id="noticeMessage" rows="3" placeholder="Notice message..."></textarea></div>
+          </div>
+          <button class="btn btn-primary" onclick="postNotice()"><i class="fas fa-paper-plane"></i> Post Notice</button>
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="content-card-header"><h3><i class="fas fa-list"></i> All Notices</h3></div>
+        <div class="content-card-body">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead><tr><th>Title</th><th>Priority</th><th>Audience</th><th>Expiry</th><th>Status</th><th>Action</th></tr></thead>
+              <tbody id="noticesBody"><tr><td colspan="6" class="no-data"><div class="spinner"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== GALLERY SECTION ======== -->
+    <div id="sec-gallery" style="display:none">
+      <div class="content-card">
+        <div class="content-card-header"><h3><i class="fas fa-images"></i> Gallery Management</h3></div>
+        <div class="content-card-body">
+          <div id="galleryAdminAlert"></div>
+          <div style="display:flex;gap:16px;align-items:flex-end;margin-bottom:20px;flex-wrap:wrap">
+            <div class="form-group" style="margin:0;flex:1">
+              <label>Photo (Any Image Format)</label>
+              <input type="file" class="form-control" id="galleryFile" accept="image/jpeg,image/png,image/gif,image/webp,image/bmp,image/*"/>
+              <small style="color:var(--text-muted);font-size:0.76rem;margin-top:4px;display:block">Accepts: JPG, PNG, GIF, WEBP, BMP and more</small>
+            </div>
+            <div class="form-group" style="margin:0;flex:2">
+              <label>Caption (optional)</label>
+              <input type="text" class="form-control" id="galleryCaption" placeholder="e.g. Hostel Library"/>
+            </div>
+            <button class="btn btn-primary" onclick="uploadGallery()"><i class="fas fa-upload"></i> Upload</button>
+          </div>
+          <h4 style="margin-bottom:14px;font-size:0.95rem">All Submissions</h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead><tr><th>Date</th><th>Uploaded By</th><th>Image</th><th>Caption</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="galleryAdminBody"><tr><td colspan="6" class="no-data"><div class="spinner"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== ADMIN PROFILE SECTION ======== -->
+    <div id="sec-profile" style="display:none">
+      <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start;">
+        
+        <!-- Profile Card -->
+        <div class="content-card" style="flex: 1 1 350px; margin: 0;">
+          <div class="content-card-header"><h3><i class="fas fa-user-cog"></i> Admin Profile</h3></div>
+          <div class="content-card-body">
+            <div id="profileAlert"></div>
+            <div style="margin-bottom:20px">
+              <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:10px">Current Profile Photo</p>
+              <div class="sidebar-avatar initials" id="profileAvatarBig" style="width:80px;height:80px;font-size:2rem;border-radius:50%;margin:0">MA</div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Username</label><input type="text" class="form-control" id="profileUsername"/></div>
+              <div class="form-group"><label>Full Name *</label><input type="text" class="form-control" id="profileFullName"/></div>
+              <div class="form-group full"><label>Email *</label><input type="email" class="form-control" id="profileEmail"/></div>
+              <div class="form-group full"><label>Update Profile Photo</label><input type="file" class="form-control" id="profilePhoto" accept="image/*"/></div>
+            </div>
+            <button class="btn btn-primary" onclick="updateAdminProfile()"><i class="fas fa-save"></i> Update Profile</button>
+          </div>
+        </div>
+
+        <!-- Update Password Card -->
+        <div class="content-card" style="flex: 1 1 350px; margin: 0;">
+          <div class="content-card-header"><h3><i class="fas fa-key"></i> Update Password</h3></div>
+          <div class="content-card-body">
+            <div id="passwordAlert"></div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label>Current Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="adminCurrentPwd" placeholder="Current password" style="padding-left: 16px; padding-right: 44px;"/>
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('adminCurrentPwd',this)"><i class="fas fa-eye"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>New Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="adminNewPwd" placeholder="New password" style="padding-left: 16px; padding-right: 44px;"/>
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('adminNewPwd',this)"><i class="fas fa-eye"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Confirm New Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="adminConfirmPwd" placeholder="Confirm new password" style="padding-left: 16px; padding-right: 44px;"/>
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('adminConfirmPwd',this)"><i class="fas fa-eye"></i></button>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-danger" onclick="updateAdminPassword()"><i class="fas fa-key"></i> Update Password</button>
+          </div>
+        </div>
+
+        <!-- SMTP Configuration Card -->
+        <div class="content-card" style="flex: 1 1 350px; margin: 0;">
+          <div class="content-card-header"><h3><i class="fas fa-envelope"></i> SMTP Configuration</h3></div>
+          <div class="content-card-body">
+            <div id="smtpAlert"></div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>SMTP Host</label>
+                <input type="text" class="form-control" id="smtpHost" placeholder="e.g. smtp.gmail.com"/>
+              </div>
+              <div class="form-group">
+                <label>SMTP Port</label>
+                <input type="text" class="form-control" id="smtpPort" placeholder="e.g. 587"/>
+              </div>
+              <div class="form-group full">
+                <label>Sender Email (Username)</label>
+                <input type="email" class="form-control" id="smtpUser" placeholder="e.g. admin@example.com"/>
+              </div>
+              <div class="form-group full">
+                <label>SMTP Password / App Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="smtpPass" placeholder="App password" style="padding-left: 16px; padding-right: 44px;"/>
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('smtpPass',this)"><i class="fas fa-eye"></i></button>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="saveSmtpSettings()"><i class="fas fa-save"></i> Save Email Setting</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end page-content -->
+</div><!-- end main-content -->
+
+<!-- ======== ADD ROOM MODAL ======== -->
+<div class="modal-overlay" id="addRoomModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="roomModalTitle"><i class="fas fa-building"></i> Add New Room</h3>
+      <button class="modal-close" onclick="closeModal('addRoomModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div id="roomModalAlert"></div>
+      <input type="hidden" id="editRoomId"/>
+      <div class="form-row">
+        <div class="form-group full">
+          <label>Hostel *</label>
+          <select class="form-control" id="roomHostel">
+            <option value="">Select Hostel</option>
+            <option>FAQIR IPI HOUSE</option>
+            <option>FATIMA HOUSE</option>
+            <option>KHYBER HOUSE</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Room No *</label><input type="text" class="form-control" id="roomNo" placeholder="e.g. 101"/></div>
+        <div class="form-group"><label>Capacity *</label><input type="number" class="form-control" id="roomCapacity" min="1" max="10" value="2"/></div>
+        <div class="form-group full"><label>Description</label><textarea class="form-control" id="roomDesc" rows="2" placeholder="Room description..."></textarea></div>
+        <div class="form-group full"><label>Room Image</label><input type="file" class="form-control" id="roomImage" accept="image/*"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('addRoomModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveRoom()"><i class="fas fa-save"></i> Save Room</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======== ADD FEE MODAL ======== -->
+<div class="modal-overlay" id="addFeeModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fas fa-money-bill-wave"></i> Add Fee Record</h3>
+      <button class="modal-close" onclick="closeModal('addFeeModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div id="feeModalAlert"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Role *</label>
+          <select class="form-control" id="feeRole" onchange="loadFeeUsers()">
+            <option value="Student">Student</option>
+            <option value="Faculty">Faculty</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>User *</label>
+          <select class="form-control" id="feeUser"><option>Select Role First</option></select>
+        </div>
+        <div class="form-group"><label>Fee Month *</label>
+          <select class="form-control" id="feeMonth">
+            <option>January</option><option>February</option><option>March</option>
+            <option>April</option><option>May</option><option>June</option>
+            <option>July</option><option>August</option><option>September</option>
+            <option>October</option><option>November</option><option>December</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Fee Year *</label><input type="number" class="form-control" id="feeYear" value="2026" min="2020" max="2030"/></div>
+        <div class="form-group"><label>Amount (Rs.) *</label><input type="number" class="form-control" id="feeAmount" placeholder="5000" min="0"/></div>
+        <div class="form-group"><label>Status</label>
+          <select class="form-control" id="feeStatus">
+            <option value="Unpaid">Unpaid</option>
+            <option value="Paid">Paid</option>
+          </select>
+        </div>
+        <div class="form-group full"><label>Notes</label><input type="text" class="form-control" id="feeNotes" placeholder="Optional notes"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('addFeeModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveFee()"><i class="fas fa-save"></i> Save Record</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======== VERIFY PAYMENT MODAL ======== -->
+<div class="modal-overlay" id="verifyPaymentModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fas fa-check-circle"></i> Verify Online Payment</h3>
+      <button class="modal-close" onclick="closeModal('verifyPaymentModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="verifyFeeId"/>
+      <div style="margin-bottom:15px;">
+        <strong>Payment Method:</strong> <span id="vPayMethod"></span><br>
+        <strong>Transaction ID:</strong> <span id="vTrxId"></span>
+      </div>
+      <div style="text-align:center; margin-bottom: 15px; border: 1px solid #ddd; padding: 5px; border-radius: 8px;">
+        <img id="vProofImg" src="" alt="Payment Proof" style="max-width:100%; max-height:400px; display:none;" />
+        <a id="vProofLink" href="#" target="_blank" style="display:none; color: var(--primary); text-decoration: underline;">View PDF Proof</a>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">Please verify the screenshot and transaction ID against your bank/wallet records before approving.</p>
+    </div>
+    <div class="modal-footer" style="display: flex; gap: 10px;">
+      <button class="btn btn-outline" onclick="closeModal('verifyPaymentModal')">Cancel</button>
+      <button class="btn btn-danger" onclick="submitFeeVerification('Unpaid')"><i class="fas fa-times"></i> Reject</button>
+      <button class="btn btn-primary" onclick="submitFeeVerification('Paid')"><i class="fas fa-check"></i> Approve</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/admin_dashboard.js"></script>
+</body>
+</html>

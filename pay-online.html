@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Online — FATA University Hostel</title>
+    <link rel="icon" href="assets/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.0.2">
+    <link rel="stylesheet" href="assets/css/pay_online.css?v=1.0.2">
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-card">
+            <div class="payment-header">
+                <div class="header-left">
+                    <a href="#" id="backBtn" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+                    <h1><i class="fas fa-wallet text-primary"></i> Online Fee Payment</h1>
+                </div>
+                <img src="assets/images/logo.png" alt="Logo" class="payment-logo">
+            </div>
+
+            <div class="payment-grid">
+                <!-- Info Section -->
+                <div class="payment-info">
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> Payment Instructions</h3>
+                        <p>Follow these steps to complete your fee payment:</p>
+                        <ol>
+                            <li>Select your preferred payment method below.</li>
+                            <li>Send the exact fee amount to the account provided.</li>
+                            <li>Note down the <strong>Transaction ID</strong>.</li>
+                            <li>Take a <strong>Screenshot</strong> of the successful transaction.</li>
+                            <li>Upload the screenshot and enter the ID to submit for verification.</li>
+                        </ol>
+                    </div>
+
+                    <div class="account-details">
+                        <h4>Our Official Accounts</h4>
+                        <div class="account-item">
+                            <div class="account-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Easypaisa_Logo.png/640px-Easypaisa_Logo.png" alt="EasyPaisa" style="height: 20px;"></div>
+                            <div class="account-text">
+                                <span class="label">EasyPaisa Account:</span>
+                                <span class="value">Asad Ullah</span>
+                                <span class="number">03479177330</span>
+                            </div>
+                        </div>
+                        <div class="account-item">
+                            <div class="account-icon"><i class="fas fa-university"></i></div>
+                            <div class="account-text">
+                                <span class="label">Bank Transfer:</span>
+                                <span class="value">Multiple Options Available</span>
+                                <span class="small">Choose method to see details</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Section -->
+                <div class="payment-form-area">
+                    <div id="paymentAlert"></div>
+                    <div class="fee-details-banner" id="feeBanner">
+                        <div class="spinner"></div>
+                    </div>
+
+                    <form id="paymentForm">
+                        <input type="hidden" id="payFeeId">
+                        
+                        <div class="form-group">
+                            <label>Payment Method <span class="required">*</span></label>
+                            <div class="method-grid">
+                                <label class="method-card active">
+                                    <input type="radio" name="payMethod" value="EasyPaisa" checked>
+                                    <span class="method-icon"><i class="fas fa-mobile-alt"></i></span>
+                                    <span class="method-name">EasyPaisa</span>
+                                </label>
+                                <label class="method-card">
+                                    <input type="radio" name="payMethod" value="JazzCash">
+                                    <span class="method-icon"><i class="fas fa-mobile-screen"></i></span>
+                                    <span class="method-name">JazzCash</span>
+                                </label>
+                                <label class="method-card">
+                                    <input type="radio" name="payMethod" value="Upaisa">
+                                    <span class="method-icon"><i class="fas fa-wallet"></i></span>
+                                    <span class="method-name">Upaisa</span>
+                                </label>
+                                <label class="method-card">
+                                    <input type="radio" name="payMethod" value="Bank Transfer">
+                                    <span class="method-icon"><i class="fas fa-university"></i></span>
+                                    <span class="method-name">Bank Transfer</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="bankSelectionGroup" style="display:none;" class="animate-fade">
+                            <div class="form-group">
+                                <label>Select Your Bank <span class="required">*</span></label>
+                                <div class="bank-grid">
+                                    <label class="bank-card">
+                                        <input type="radio" name="bankSelect" value="Meezan Bank">
+                                        <img src="assets/images/banks/meezan_bank_logo.png" alt="Meezan">
+                                        <span>Meezan</span>
+                                    </label>
+                                    <label class="bank-card">
+                                        <input type="radio" name="bankSelect" value="UBL">
+                                        <img src="assets/images/banks/ubl_logo.png" alt="UBL">
+                                        <span>UBL</span>
+                                    </label>
+                                    <label class="bank-card">
+                                        <input type="radio" name="bankSelect" value="Allied Bank Limited">
+                                        <img src="assets/images/banks/allied_bank_logo.png" alt="Allied">
+                                        <span>Allied</span>
+                                    </label>
+                                    <label class="bank-card">
+                                        <input type="radio" name="bankSelect" value="Bank AlFalah Limited">
+                                        <img src="assets/images/banks/bank_alfalah_logo.png" alt="Alfalah">
+                                        <span>Alfalah</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="payTrxId">Transaction / Reference ID <span class="required">*</span></label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-hashtag"></i>
+                                <input type="text" id="payTrxId" class="form-control" placeholder="e.g. 1234567890" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="payProof">Upload Screenshot (Proof) <span class="required">*</span></label>
+                            <div class="file-upload-area" id="dropZone">
+                                <input type="file" id="payProof" class="file-input" accept="image/*,.pdf" required>
+                                <div class="file-dummy">
+                                    <div class="dummy-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                                    <div class="dummy-text">Click to upload or drag & drop</div>
+                                    <div class="dummy-hint">JPG, PNG or PDF (Max 5MB)</div>
+                                </div>
+                                <div class="file-preview" id="filePreview" style="display:none;">
+                                    <span id="fileName"></span>
+                                    <button type="button" class="remove-file" onclick="removeFile()"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                            <span class="btn-text">Submit Payment Proof</span>
+                            <span class="btn-spinner" style="display:none;"><i class="fas fa-circle-notch fa-spin"></i> Processing...</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/pay_online.js"></script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard — FATA University Hostel</title>
+  <link rel="icon" href="../assets/images/logo.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1.0.2" />
+  <link rel="stylesheet" href="../assets/css/student_dashboard.css?v=1.0.2" />
+</head>
+
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-avatar" id="sidebarAvatarImg">
+        <span id="sidebarInitials">S</span>
+      </div>
+      <div class="sidebar-name" id="sidebarName">Student</div>
+      <span class="sidebar-role">Student</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Menu</div>
+      <a href="../index.html" class="sidebar-link"><i class="fas fa-home"></i> Home</a>
+      <a href="#" class="sidebar-link active" onclick="showSection('overview',this)"><i class="fas fa-th-large"></i>
+        Overview</a>
+      <a href="#" class="sidebar-link" onclick="showSection('profile',this)"><i class="fas fa-user"></i> My Profile</a>
+      <a href="#" class="sidebar-link" onclick="showSection('myroom',this)"><i class="fas fa-door-open"></i> My Room</a>
+      <a href="#" class="sidebar-link" onclick="showSection('applications',this)"><i class="fas fa-file-alt"></i>
+        Applications</a>
+      <a href="#" class="sidebar-link" onclick="showSection('fees',this)"><i class="fas fa-money-bill-wave"></i> Fee
+        Status</a>
+      <a href="#" class="sidebar-link" onclick="showSection('complaints',this)"><i
+          class="fas fa-exclamation-circle"></i> Complaints</a>
+      <a href="#" class="sidebar-link" onclick="showSection('gallery',this)"><i class="fas fa-images"></i> Gallery</a>
+      <a href="#" class="sidebar-link" onclick="showSection('settings',this)"><i class="fas fa-cog"></i> Account
+        Settings</a>
+      <a href="student_id_card.html" class="sidebar-link"><i class="fas fa-id-card"></i> Download ID Card</a>
+      <a href="student_ecard.html" class="sidebar-link"><i class="fas fa-mobile-alt"></i> View Digital E-Card</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="logout-btn" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger-toggle" onclick="toggleSidebar()"><i class="fas fa-bars" id="hamIcon"></i></button>
+        <div>
+          <div class="topbar-welcome" id="topbarWelcome">Welcome, Student! <span class="wave">👋</span></div>
+          <div class="topbar-date" id="topbarDate"></div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="student_id_card.html" class="id-card-btn"><i class="fas fa-id-card"></i> Download ID Card</a>
+        <a href="student_ecard.html" class="id-card-btn" style="background:#10b981; border-color:#10b981; margin-left: 8px;"><i class="fas fa-mobile-alt"></i> View E-Card</a>
+        <div class="user-chip">
+          <div class="user-chip-avatar" id="userChipAvatar">S</div>
+          <span class="user-chip-name" id="userChipName">Student</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <!-- ======== OVERVIEW ======== -->
+      <div id="sec-overview">
+        <div id="idReadyBanner" style="display:none" class="id-ready-banner">
+          <div>
+            <h4>🎉 Your Hostel ID Card is Ready!</h4>
+            <p>Your room has been assigned. Access your printable ID card and digital E-Card now.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <a href="student_id_card.html" class="id-card-btn"><i class="fas fa-id-card"></i> Print ID Card</a>
+            <a href="student_ecard.html" class="id-card-btn" style="background:#10b981; border-color:#10b981;"><i class="fas fa-mobile-alt"></i> View E-Card</a>
+          </div>
+        </div>
+
+        <div class="overview-grid">
+          <div class="overview-card">
+            <div class="overview-icon">🚪</div>
+            <div class="overview-value" id="ovRoom">—</div>
+            <div class="overview-label">My Room</div>
+          </div>
+          <div class="overview-card hostel">
+            <div class="overview-icon">🏠</div>
+            <div class="overview-value" id="ovHostel">—</div>
+            <div class="overview-label">My Hostel</div>
+          </div>
+          <div class="overview-card fee-paid">
+            <div class="overview-icon">💚</div>
+            <div class="overview-value" id="ovPaid">Rs. 0</div>
+            <div class="overview-label">Fees Paid</div>
+          </div>
+          <div class="overview-card fee-due">
+            <div class="overview-icon">❗</div>
+            <div class="overview-value" id="ovDue">Rs. 0</div>
+            <div class="overview-label">Fees Due</div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- My Room -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3><i class="fas fa-door-open"></i> My Current Room</h3>
+              <a href="#" onclick="showSection('myroom')">Details</a>
+            </div>
+            <div class="dashboard-card-body" id="overviewRoom">
+              <p style="color:var(--text-muted);font-size:0.9rem">No room assigned yet.</p>
+            </div>
+          </div>
+          <!-- Latest Notices -->
+          <div class="dashboard-card">
+            <div class="dashboard-card-header">
+              <h3><i class="fas fa-bullhorn"></i> Latest Notices</h3>
+              <span id="noticeCount" style="font-size:0.8rem;color:var(--text-muted)"></span>
+            </div>
+            <div class="dashboard-card-body" id="overviewNotices">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Complaint Banner -->
+        <div class="complaint-banner">
+          <div>
+            <h3><i class="fas fa-headset"></i> Lodge a Complaint</h3>
+            <p>Having an issue? Submit a complaint to hostel administration.</p>
+          </div>
+          <a href="#" class="complaint-btn" onclick="showSection('complaints')"><i class="fas fa-paper-plane"></i> File
+            Complaint</a>
+        </div>
+
+        <!-- Gallery Preview -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-header">
+            <h3><i class="fas fa-images"></i> Gallery</h3>
+            <a href="#" onclick="showSection('gallery')">View All</a>
+          </div>
+          <div class="dashboard-card-body">
+            <div class="gallery-preview" id="overviewGallery">
+              <div class="gallery-preview-img"><img src="../assets/images/hero-image3.jpg" alt="Campus" /></div>
+              <div class="gallery-preview-img"><img src="../assets/images/hero-image4.jpg" alt="Campus" /></div>
+              <div class="gallery-preview-img"><img src="../assets/images/hero-image1.jpeg" alt="Campus" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======== MY PROFILE ======== -->
+      <div id="sec-profile" style="display:none">
+        <div class="profile-section">
+          <div class="profile-header-area" id="profileHeaderArea">
+            <div class="profile-photo-large" id="profilePhotoDisplay">S</div>
+            <div class="profile-info">
+              <h3 id="profileNameDisplay">Student</h3>
+              <span class="role-tag">Student</span>
+            </div>
+          </div>
+          <div class="profile-detail-grid" id="profileDetails"></div>
+        </div>
+      </div>
+
+      <!-- ======== MY ROOM ======== -->
+      <div id="sec-myroom" style="display:none">
+        <div id="myRoomContent">
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <!-- ======== APPLICATIONS ======== -->
+      <div id="sec-applications" style="display:none">
+        <div class="apply-room-card">
+          <div class="section-head" style="padding:18px 20px;border-bottom:1px solid #f0f0f0">
+            <h3 style="font-size:0.95rem;font-weight:700"><i class="fas fa-building" style="color:var(--primary)"></i>
+              Browse & Apply for a Room</h3>
+          </div>
+          <div style="padding:20px">
+            <div class="filter-bar" style="margin-bottom:16px">
+              <select class="form-control" id="roomStatusFilter" onchange="loadMyRooms()" style="width:auto">
+                <option value="">All Rooms</option>
+                <option value="Available">Available Only</option>
+              </select>
+            </div>
+            <div class="rooms-grid" id="availableRoomsGrid"
+              style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:20px">
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:14px"><i class="fas fa-file-alt"
+              style="color:var(--primary)"></i> My Applications</h3>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Hostel</th>
+                  <th>Room</th>
+                  <th>Type</th>
+                  <th>Duration</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="myAppsBody">
+                <tr>
+                  <td colspan="6" class="no-data">
+                    <div class="spinner"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======== FEE STATUS ======== -->
+      <div id="sec-fees" style="display:none">
+        <div class="dashboard-card" style="max-width:700px">
+          <div class="dashboard-card-header" style="display:flex; justify-content:space-between; align-items:center;">
+            <h3><i class="fas fa-money-bill-wave"></i> Fee Status</h3>
+            <button class="btn btn-sm btn-outline" onclick="downloadMyFeesPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+          </div>
+          <div class="dashboard-card-body">
+            <div class="fee-summary" id="feeSummary">
+              <div class="fee-box paid">
+                <div class="fee-box-value" id="feePaidTotal">Rs. 0</div>
+                <div class="fee-box-label">Total Paid</div>
+              </div>
+              <div class="fee-box due">
+                <div class="fee-box-value" id="feeDueTotal">Rs. 0</div>
+                <div class="fee-box-label">Total Due</div>
+              </div>
+            </div>
+            <div
+              style="background: #eef2ff; padding: 16px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--primary);">
+              <h4 style="margin-bottom: 8px; color: var(--primary); font-size: 0.95rem;"><i
+                  class="fas fa-info-circle"></i> Online Payment Instructions</h4>
+              <p style="font-size: 0.85rem; color: var(--text-color); margin-bottom: 6px;">You can pay your fees online
+                using EasyPaisa or other supported bank transfers. Please send the exact amount to the following account
+                and upload the screenshot.</p>
+              <ul style="font-size: 0.85rem; margin-left: 20px; color: var(--text-muted); font-weight: 500;">
+                <li><strong>EasyPaisa Account:</strong> Asad Ullah</li>
+                <li><strong>Account Number:</strong> 03479177330</li>
+              </ul>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Month/Year</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action/Receipt</th>
+                  </tr>
+                </thead>
+                <tbody id="feeTableBody">
+                  <tr>
+                    <td colspan="5" class="no-data">
+                      <div class="spinner"></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ======== COMPLAINTS ======== -->
+      <div id="sec-complaints" style="display:none">
+        <div class="dashboard-card" style="max-width:700px;margin-bottom:20px">
+          <div class="dashboard-card-header">
+            <h3><i class="fas fa-paper-plane"></i> Submit New Grievance</h3>
+          </div>
+          <div class="dashboard-card-body">
+            <div id="complaintAlert"></div>
+            <div class="form-group"><label>Subject / Title *</label><input type="text" class="form-control"
+                id="complaintTitle" placeholder="Subject / Title" /></div>
+            <div class="form-group"><label>Detailed Description *</label><textarea class="form-control"
+                id="complaintDesc" rows="4" placeholder="Detailed description of the issue..."></textarea></div>
+            <button class="btn btn-orange" onclick="submitComplaint()"><i class="fas fa-paper-plane"></i> Dispatch
+              Complaint</button>
+          </div>
+        </div>
+        <div class="dashboard-card" style="max-width:700px">
+          <div class="dashboard-card-header">
+            <h3><i class="fas fa-archive"></i> Archived Complaints</h3>
+          </div>
+          <div class="dashboard-card-body">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Subject</th>
+                    <th>Resolution Status</th>
+                  </tr>
+                </thead>
+                <tbody id="myComplaintsBody">
+                  <tr>
+                    <td colspan="3" class="no-data">Inbox is empty.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======== GALLERY ======== -->
+      <div id="sec-gallery" style="display:none">
+        <div class="dashboard-card" style="max-width:700px">
+          <div class="dashboard-card-header">
+            <h3><i class="fas fa-images"></i> Gallery</h3>
+          </div>
+          <div class="dashboard-card-body">
+            <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:16px">Share your hostel moments. Photos go
+              live after admin approval.</p>
+            <div id="galleryAlert"></div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px">
+              <div class="form-group" style="margin:0;flex:1"><label>Choose Photo</label>
+                <input type="file" class="form-control" id="galleryUploadFile"
+                  accept="image/jpeg,image/png,image/gif,image/webp,image/bmp,image/*" />
+                <small style="color:var(--text-muted);font-size:0.76rem;margin-top:4px;display:block">Accepts: JPG, PNG,
+                  GIF, WEBP, BMP and more</small>
+              </div>
+              <div class="form-group" style="margin:0;flex:2"><label>Caption (optional)</label><input type="text"
+                  class="form-control" id="galleryUploadCaption" placeholder="e.g. Common Room" /></div>
+              <button class="btn btn-primary" onclick="uploadMyGallery()"><i class="fas fa-upload"></i> Upload
+                Photo</button>
+            </div>
+            <!-- Community Gallery -->
+            <h4 style="margin-bottom:4px;font-size:0.9rem;font-weight:700"><i class="fas fa-globe"
+                style="color:var(--primary);margin-right:5px"></i>Community Gallery</h4>
+            <p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:12px">Approved photos from all hostel
+              members.</p>
+            <div
+              style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:28px"
+              id="communityGalleryGrid">
+              <p style="color:var(--text-muted);font-size:0.88rem">Loading...</p>
+            </div>
+            <!-- My Submitted Photos -->
+            <h4 style="margin-bottom:4px;font-size:0.9rem;font-weight:700"><i class="fas fa-user-circle"
+                style="color:var(--secondary);margin-right:5px"></i>My Submitted Photos</h4>
+            <p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:12px">Your uploads — pending photos appear
+              after admin approval.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px"
+              id="myGalleryGrid">
+              <p style="color:var(--text-muted);font-size:0.88rem">No photos yet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======== ACCOUNT SETTINGS ======== -->
+      <div id="sec-settings" style="display:none">
+        <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start;">
+          
+          <!-- Profile Management Card -->
+          <div class="dashboard-card" style="flex: 1 1 350px; margin: 0;">
+            <div class="dashboard-card-header">
+              <h3><i class="fas fa-user-cog"></i> Profile Management</h3>
+            </div>
+            <div class="dashboard-card-body">
+              <div id="settingsAlert"></div>
+              <div style="background:var(--light-gray);border-radius:10px;padding:16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <div>
+                  <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:6px">Profile Picture</p>
+                  <p style="font-size:0.8rem;color:var(--text-muted)">Change your public photo</p>
+                </div>
+                <label style="display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--primary);color:#fff;border-radius:8px;cursor:pointer;font-size:0.85rem;font-weight:600" for="settingsPhoto">
+                  <i class="fas fa-camera"></i> Upload
+                </label>
+                <input type="file" id="settingsPhoto" accept="image/*" style="display:none" onchange="uploadProfilePhoto(this)" />
+              </div>
+              <h4 style="font-size:0.9rem;color:var(--text-muted);margin-bottom:12px">Contact Information</h4>
+              <div class="form-group"><label>Phone Number</label><input type="tel" class="form-control" id="settingsPhone" placeholder="03XX-XXXXXXX" /></div>
+              <div class="form-group"><label>Residential Address</label><textarea class="form-control" id="settingsAddress" rows="2"></textarea></div>
+              <div class="form-group">
+                <label>Semester</label>
+                <select class="form-control" id="settingsSemester">
+                  <option value="">Select Semester</option>
+                  <option value="1st Semester">1st Semester</option>
+                  <option value="2nd Semester">2nd Semester</option>
+                  <option value="3rd Semester">3rd Semester</option>
+                  <option value="4th Semester">4th Semester</option>
+                  <option value="5th Semester">5th Semester</option>
+                  <option value="6th Semester">6th Semester</option>
+                  <option value="7th Semester">7th Semester</option>
+                  <option value="8th Semester">8th Semester</option>
+                </select>
+              </div>
+              <button class="btn btn-primary btn-block" onclick="updateSettings()"><i class="fas fa-save"></i> Update Profile Details</button>
+            </div>
+          </div>
+
+          <!-- Security & Password Card -->
+          <div class="dashboard-card" style="flex: 1 1 350px; margin: 0;">
+            <div class="dashboard-card-header">
+              <h3><i class="fas fa-shield-alt"></i> Security &amp; Account</h3>
+            </div>
+            <div class="dashboard-card-body">
+              <!-- Update Password -->
+              <h4 style="font-size:0.95rem;font-weight:700;color:var(--primary);margin-bottom:14px;display:flex;align-items:center;gap:8px">
+                <i class="fas fa-lock"></i> Update Password
+              </h4>
+              <div id="passwordAlert"></div>
+              <div class="form-group">
+                <label>Current Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="currentPwd" placeholder="Current password" style="padding-left: 16px; padding-right: 44px;" />
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('currentPwd',this)"><i class="fas fa-eye"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>New Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="newPwd" placeholder="New password" style="padding-left: 16px; padding-right: 44px;" />
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('newPwd',this)"><i class="fas fa-eye"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Confirm New Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="confirmPwd" placeholder="Confirm new password" style="padding-left: 16px; padding-right: 44px;" />
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('confirmPwd',this)"><i class="fas fa-eye"></i></button>
+                </div>
+              </div>
+              <button class="btn btn-outline btn-block" onclick="updatePassword()"><i class="fas fa-key"></i> Save Password</button>
+
+              <hr style="margin:24px 0;border-color:#f0f0f0" />
+
+              <!-- Account Information -->
+              <h4 style="font-size:0.95rem;font-weight:700;color:var(--primary);margin-bottom:14px;display:flex;align-items:center;gap:8px">
+                <i class="fas fa-envelope"></i> Account Information
+              </h4>
+              <div class="form-group"><label>Email Address</label><input type="email" class="form-control" id="settingsEmail" /></div>
+              <button class="btn btn-outline btn-block" onclick="updateAccountInfo()"><i class="fas fa-save"></i> Update Info</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../assets/js/student_dashboard.js"></script>
+</body>
+
+</html>

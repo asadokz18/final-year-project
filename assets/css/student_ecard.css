@@ -1,0 +1,326 @@
+/* ============================================
+   Student E-Card CSS (Mirrors Printable ID Card)
+   ============================================ */
+
+body {
+  background: #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  color: #333;
+}
+
+.ecard-container {
+  perspective: 1000px;
+  width: 280px;
+  height: 540px;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.ecard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+
+.ecard-container.flipped .ecard-inner {
+  transform: rotateY(180deg);
+}
+
+.ecard-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  border: 1.5px solid #2d5a27;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* BACK CARD */
+.ecard-back {
+  transform: rotateY(180deg);
+}
+
+/* Header styling */
+.ecard-header {
+  background: #2d5a27;
+  padding: 18px 20px 16px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.ecard-header img.logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  padding: 1px;
+}
+
+.ecard-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  text-align: left;
+}
+
+.ecard-header p {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #8b7355;
+  letter-spacing: 0.5px;
+  margin: 2px 0 0 0;
+  text-align: left;
+}
+
+/* E-Card Body */
+.ecard-body {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background: #fff;
+}
+
+.photo-area {
+  position: relative;
+  margin: 0 auto 16px;
+  width: 80px;
+  height: 80px;
+}
+
+.ecard-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid #1e4520;
+  object-fit: cover;
+  background: #f0f0f0;
+}
+
+.status-badge {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background: #10b981;
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  text-transform: uppercase;
+}
+
+.ecard-name {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.ecard-name h2 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1a3a1c;
+  margin: 0;
+}
+
+.ecard-name p {
+  font-size: 0.75rem;
+  color: #b89d5a;
+  font-weight: 600;
+  margin: 2px 0 0 0;
+}
+
+.ecard-details {
+  width: 100%;
+  font-size: 0.75rem;
+}
+
+.ecard-info-box {
+  display: flex;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px dashed #eee;
+  background: none;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.ecard-info-box:last-child {
+  border-bottom: none;
+}
+
+.ecard-info-label {
+  color: #777;
+  min-width: 90px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-bottom: 0;
+  font-size: 0.75rem;
+  text-align: left;
+}
+
+.ecard-info-value {
+  color: #333;
+  font-weight: 600;
+  flex: 1;
+  font-size: 0.75rem;
+  text-align: left;
+}
+
+/* Back QR Layout */
+.qr-container {
+  background: #fff;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin: 10px 0;
+  display: inline-block;
+  border: 1px solid #eee;
+}
+
+.back-notice-box {
+  font-size: 0.7rem;
+  color: #8b7355;
+  background: #f5f0e8;
+  text-align: center;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 15px 0 auto;
+  border: 1px solid #e2d9cd;
+  width: 90%;
+}
+
+/* Ecard Footer */
+.ecard-footer {
+  background: #8b7355;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.78rem;
+  margin-top: auto;
+  border-top: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.ecard-date-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.ecard-date-label {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: none;
+  font-weight: normal;
+  letter-spacing: normal;
+}
+
+.ecard-date-value {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Action Buttons */
+.action-panel {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.action-btn.primary {
+  background: #326a33;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(50, 106, 51, 0.2);
+}
+
+.action-btn.primary:hover {
+  background: #1e4520;
+  box-shadow: 0 6px 18px rgba(50, 106, 51, 0.3);
+  transform: translateY(-2px);
+}
+
+.action-btn.secondary {
+  background: #fff;
+  color: #326a33;
+  border: 1px solid #326a33;
+}
+
+.action-btn.secondary:hover {
+  background: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+/* Flip hint */
+.flip-hint {
+  font-size: 0.78rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+/* Spinner style */
+.spinner {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-left-color: #326a33;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

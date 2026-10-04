@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — FATA University Hostel</title>
+  <link rel="icon" href="assets/images/logo.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" />
+  <link rel="stylesheet" href="assets/css/style.css?v=1.0.2" />
+  <link rel="stylesheet" href="assets/css/register.css?v=1.0.2" />
+</head>
+
+<body>
+
+  <!-- ====== SITE HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="header-brand">
+        <img src="assets/images/logo.png" alt="Logo">
+        <span>FATA University Hostel</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <div class="register-wrapper">
+
+    <!-- ====== REGISTRATION TAB SWITCHER ====== -->
+    <!-- Allows users to toggle between Student and Faculty forms -->
+    <div class="tab-switcher">
+      <button class="btn btn-primary" id="tabStudent" onclick="switchTab('student')">
+        <i class="fas fa-user-graduate"></i> Student Registration
+      </button>
+      <button class="btn btn-outline" id="tabFaculty" onclick="switchTab('faculty')">
+        <i class="fas fa-chalkboard-teacher"></i> Faculty Registration
+      </button>
+    </div>
+
+    <!-- Alert -->
+    <div id="regAlert"></div>
+
+    <!-- ====== STUDENT REGISTRATION FORM ====== -->
+    <!-- Captures personal and academic data for student enrollment -->
+    <div id="studentForm">
+      <div class="register-card">
+        <div class="register-card-header">
+          <div class="icon"><i class="fas fa-user-graduate"></i></div>
+          <div>
+            <h3>Student Registration</h3>
+            <p>Fill in your personal and academic information</p>
+          </div>
+        </div>
+        <div class="register-card-body">
+          <form id="studentRegForm" enctype="multipart/form-data">
+            <div class="form-grid">
+
+              <!-- Photo Upload -->
+              <div class="photo-upload full-width">
+                <img src="https://via.placeholder.com/80x80/326a33/ffffff?text=Photo" alt="Preview"
+                  class="photo-preview" id="studentPhotoPreview" />
+                <div>
+                  <label style="font-weight:600;color:#1C2331;display:block;margin-bottom:6px">Profile Photo (for ID
+                    Card)</label>
+                  <p style="font-size:0.82rem;color:#6c757d;margin-bottom:8px">Upload a clear passport-size photo</p>
+                  <label class="upload-btn" for="studentPhoto"><i class="fas fa-camera"></i> Choose Photo</label>
+                  <input type="file" id="studentPhoto" name="profile_photo" accept="image/*" style="display:none"
+                    onchange="previewPhoto(this,'studentPhotoPreview')" />
+                </div>
+              </div>
+
+              <div class="section-divider full-width"><i class="fas fa-user"></i> Personal Information</div>
+              <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" id="s_fullname" class="form-control" name="full_name" placeholder="Your full name"
+                  required />
+              </div>
+              <div class="form-group">
+                <label>Father's Name *</label>
+                <input type="text" id="s_fathername" class="form-control" name="father_name" placeholder="Father's name"
+                  required />
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" id="s_email" class="form-control" name="email" placeholder="your@gmail.com"
+                  required />
+              </div>
+              <div class="form-group">
+                <label>Phone Number *</label>
+                <input type="tel" id="s_phone" class="form-control" name="phone" placeholder="03XX-XXXXXXX" required />
+              </div>
+              <div class="form-group">
+                <label>Gender *</label>
+                <select id="s_gender" class="form-control" name="gender" required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>CNIC No *</label>
+                <input type="text" id="s_cnic" class="form-control" name="cnic" placeholder="XXXXX-XXXXXXX-X"
+                  required />
+              </div>
+              <div class="form-group">
+                <label>Date of Birth *</label>
+                <input type="date" id="s_dob" class="form-control" name="dob" required />
+              </div>
+
+              <div class="section-divider full-width"><i class="fas fa-graduation-cap"></i> Academic Information</div>
+
+              <div class="form-group">
+                <label>Department *</label>
+                <select id="s_department" class="form-control" name="department" required>
+                  <option value="">Select Department</option>
+                  <option>BS Computer Science</option>
+                  <option>Management Sciences</option>
+                  <option>Political Science</option>
+                  <option>English</option>
+                  <option>Geology</option>
+                  <option>Sociology</option>
+                  <option>Mathematics</option>
+                  <option>Psychology</option>
+                  <option>Microbiology</option>
+                  <option>Electronics</option>
+                  <option>Education</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Semester *</label>
+                <select id="s_semester" class="form-control" name="semester" required>
+                  <option value="">Select Semester</option>
+                  <option value="1st Semester">1st Semester</option>
+                  <option value="2nd Semester">2nd Semester</option>
+                  <option value="3rd Semester">3rd Semester</option>
+                  <option value="4th Semester">4th Semester</option>
+                  <option value="5th Semester">5th Semester</option>
+                  <option value="6th Semester">6th Semester</option>
+                  <option value="7th Semester">7th Semester</option>
+                  <option value="8th Semester">8th Semester</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Registration No *</label>
+                <input type="text" id="s_regno" class="form-control" name="registration_no" placeholder="2022-FU-XXXX"
+                  required />
+              </div>
+              <div class="form-group full-width">
+                <label>Home Address *</label>
+                <textarea id="s_address" class="form-control" name="home_address" rows="2"
+                  placeholder="Your complete home address" required></textarea>
+              </div>
+
+              <div class="section-divider full-width"><i class="fas fa-lock"></i> Account Security</div>
+
+              <div class="form-group">
+                <label>Password *</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" name="password" id="s_password"
+                    placeholder="Min 8 characters" required minlength="8" />
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('s_password',this)"><i
+                      class="fas fa-eye"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Confirm Password *</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" name="confirm_password" id="s_confirm_password"
+                    placeholder="Repeat password" required />
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('s_confirm_password',this)"><i
+                      class="fas fa-eye"></i></button>
+                </div>
+              </div>
+
+            </div>
+            <div id="studentAlert"></div>
+            <button type="button" id="studentSubmitBtn" class="register-submit" onclick="registerStudent()">
+              <i class="fas fa-user-plus"></i> Create Student Account
+            </button>
+          </form>
+          <p class="login-prompt">Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== FACULTY REGISTRATION FORM ====== -->
+    <!-- Captures personal and professional data for faculty enrollment -->
+    <div id="facultyForm" style="display:none">
+      <div class="register-card">
+        <div class="register-card-header" style="background:linear-gradient(135deg,#937C3D,#b89d5a)">
+          <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
+          <div>
+            <h3>Faculty Registration</h3>
+            <p>Fill in your personal and professional information</p>
+          </div>
+        </div>
+        <div class="register-card-body">
+          <form id="facultyRegForm" enctype="multipart/form-data">
+            <div class="form-grid">
+
+              <!-- Photo -->
+              <div class="photo-upload full-width">
+                <img src="https://via.placeholder.com/80x80/937C3D/ffffff?text=Photo" alt="Preview"
+                  class="photo-preview" id="facultyPhotoPreview" />
+                <div>
+                  <label style="font-weight:600;color:#1C2331;display:block;margin-bottom:6px">Profile Photo</label>
+                  <p style="font-size:0.82rem;color:#6c757d;margin-bottom:8px">Upload a clear passport-size photo</p>
+                  <label class="upload-btn" for="facultyPhoto" style="background:var(--secondary)"><i
+                      class="fas fa-camera"></i> Choose Photo</label>
+                  <input type="file" id="facultyPhoto" name="profile_photo" accept="image/*" style="display:none"
+                    onchange="previewPhoto(this,'facultyPhotoPreview')" />
+                </div>
+              </div>
+
+              <div class="section-divider full-width"><i class="fas fa-user"></i> Personal Information</div>
+
+              <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" id="f_fullname" class="form-control" name="full_name" placeholder="Your full name"
+                  required />
+              </div>
+              <div class="form-group">
+                <label>Father's Name *</label>
+                <input type="text" id="f_fathername" class="form-control" name="father_name" placeholder="Father's name"
+                  required />
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" id="f_email" class="form-control" name="email" placeholder="your@email.com"
+                  required />
+              </div>
+              <div class="form-group">
+                <label>Phone Number *</label>
+                <input type="tel" id="f_phone" class="form-control" name="phone" placeholder="03XX-XXXXXXX" required />
+              </div>
+              <div class="form-group">
+                <label>Gender *</label>
+                <select id="f_gender" class="form-control" name="gender" required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>CNIC No *</label>
+                <input type="text" id="f_cnic" class="form-control" name="cnic" placeholder="XXXXX-XXXXXXX-X"
+                  required />
+              </div>
+              <div class="form-group">
+                <label>Date of Birth *</label>
+                <input type="date" id="f_dob" class="form-control" name="dob" required />
+              </div>
+
+              <div class="section-divider full-width"><i class="fas fa-briefcase"></i> Professional Information</div>
+
+              <div class="form-group">
+                <label>Designation *</label>
+                <select id="f_designation" class="form-control" name="designation" required>
+                  <option value="">Select Designation</option>
+                  <option>Lecturer</option>
+                  <option>Assistant Professor</option>
+                  <option>Associate Professor</option>
+                  <option>Professor</option>
+                  <option>Visiting Lecturer</option>
+                  <option>Research Associate</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Department *</label>
+                <select id="f_department" class="form-control" name="department" required>
+                  <option value="">Select Department</option>
+                  <option>BS Computer Science</option>
+                  <option>Management Sciences</option>
+                  <option>Political Science</option>
+                  <option>English</option>
+                  <option>Geology</option>
+                  <option>Sociology</option>
+                  <option>Mathematics</option>
+                  <option>Psychology</option>
+                  <option>Microbiology</option>
+                  <option>Electronics</option>
+                  <option>Education</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Employee ID *</label>
+                <input type="text" id="f_employeeid" class="form-control" name="employee_id" placeholder="FU-EMP-XXXX"
+                  required />
+              </div>
+              <div class="form-group">
+                <label>Qualification *</label>
+                <select id="f_qualification" class="form-control" name="qualification" required>
+                  <option value="">Select Qualification</option>
+                  <option>BS/BA</option>
+                  <option>MS/MA</option>
+                  <option>MPhil</option>
+                  <option>PhD</option>
+                  <option>Post-Doc</option>
+                </select>
+              </div>
+              <div class="form-group full-width">
+                <label>Home Address *</label>
+                <textarea id="f_address" class="form-control" name="home_address" rows="2"
+                  placeholder="Your complete home address" required></textarea>
+              </div>
+
+              <div class="section-divider full-width"><i class="fas fa-lock"></i> Account Security</div>
+
+              <div class="form-group">
+                <label>Password *</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" name="password" id="f_password"
+                    placeholder="Min 8 characters" required minlength="8" />
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('f_password',this)"><i
+                      class="fas fa-eye"></i></button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Confirm Password *</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" name="confirm_password" id="f_confirm_password"
+                    placeholder="Repeat password" required />
+                  <button type="button" class="toggle-pwd" onclick="togglePwd('f_confirm_password',this)"><i
+                      class="fas fa-eye"></i></button>
+                </div>
+              </div>
+
+            </div>
+            <div id="facultyAlert"></div>
+            <button type="button" id="facultySubmitBtn" class="register-submit"
+              style="background:linear-gradient(135deg,#937C3D,#b89d5a)" onclick="registerFaculty()">
+              <i class="fas fa-user-plus"></i> Create Faculty Account
+            </button>
+          </form>
+          <p class="login-prompt">Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="assets/js/register.js"></script>
+  <script>
+    // Tab switcher (controls the tab buttons UI)
+    function switchTab(tab) {
+      document.getElementById('studentForm').style.display = tab === 'student' ? 'block' : 'none';
+      document.getElementById('facultyForm').style.display = tab === 'faculty' ? 'block' : 'none';
+      document.getElementById('tabStudent').className = tab === 'student' ? 'btn btn-primary' : 'btn btn-outline';
+      document.getElementById('tabFaculty').className = tab === 'faculty' ? 'btn btn-primary' : 'btn btn-outline';
+      if (tab === 'faculty') document.getElementById('tabFaculty').style.cssText = 'background:var(--secondary);color:#fff;border-color:var(--secondary)';
+      else document.getElementById('tabFaculty').style.cssText = '';
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2026 FATA University Hostel &nbsp;|&nbsp;
+      <a href="index.html">Home</a> &nbsp;|&nbsp;
+      <a href="login.html">Login</a> &nbsp;|&nbsp;
+      <a href="index.html#contact">Contact</a>
+    </p>
+  </footer>
+</body>
+
+</html>

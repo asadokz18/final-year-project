@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faculty Digital E-Card — FATA University Hostel</title>
+  <link rel="icon" href="../assets/images/logo.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/faculty_ecard.css" />
+  <!-- QR Code library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+
+  <div id="loadingState" style="text-align:center;padding:60px 20px">
+    <div class="spinner"></div>
+    <p style="color:rgba(255,255,255,0.6);margin-top:12px">Accessing Digital E-Pass...</p>
+  </div>
+
+  <div id="ecardWrapper" style="display:none; text-align: center;">
+    
+    <div class="ecard-container" id="ecard" onclick="flipCard()">
+      <div class="ecard-inner">
+        
+        <!-- FRONT SIDE -->
+        <div class="ecard-face ecard-front">
+          <div class="ecard-header">
+            <img src="../assets/images/logo.png" alt="Logo" class="logo" />
+            <div style="flex:1; text-align:left">
+              <h3>FATA University</h3>
+              <p>Faculty Digital Pass</p>
+            </div>
+          </div>
+          <div class="ecard-body">
+            <div class="photo-area">
+              <img id="cardPhoto" src="../assets/images/logo.png" alt="Photo" class="ecard-photo" />
+              <span class="status-badge">Active</span>
+            </div>
+            <div class="ecard-name">
+              <h2 id="cardName">Faculty Name</h2>
+              <p id="cardDept">Department Name</p>
+            </div>
+            
+            <div class="ecard-details">
+              <div class="ecard-info-box">
+                <div class="ecard-info-label">Employee ID</div>
+                <div class="ecard-info-value" id="cardRegNo">—</div>
+              </div>
+              <div class="ecard-info-box">
+                <div class="ecard-info-label font-bold">Designation</div>
+                <div class="ecard-info-value" id="cardDesignation">—</div>
+              </div>
+              <div class="ecard-info-box">
+                <div class="ecard-info-label">Hostel Name</div>
+                <div class="ecard-info-value" id="cardHostel">—</div>
+              </div>
+              <div class="ecard-info-box">
+                <div class="ecard-info-label">Room No</div>
+                <div class="ecard-info-value" id="cardRoom">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="ecard-footer">
+            <div class="ecard-date-box" style="text-align:left">
+              <span class="ecard-date-label">Check-in Date</span>
+              <span class="ecard-date-value" id="cardJoinDate">—</span>
+            </div>
+            <div class="ecard-date-box" style="text-align:right">
+              <span class="ecard-date-label">Validity</span>
+              <span class="ecard-date-value" id="cardExpiry" style="color:#ffb3b3;">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- BACK SIDE -->
+        <div class="ecard-face ecard-back">
+          <div class="ecard-header">
+            <img src="../assets/images/logo.png" alt="Logo" class="logo" />
+            <div style="flex:1; text-align:left">
+              <h3>FATA University</h3>
+              <p>Security Verification</p>
+            </div>
+          </div>
+          <div class="ecard-body" style="padding-top:15px">
+            <div class="qr-container">
+              <div id="qrCode"></div>
+            </div>
+            <p style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin:5px 0 15px">Scan to authenticate hostel residency</p>
+            
+            <div class="ecard-details" style="grid-template-columns:1fr; gap:8px; border-top:none; padding:0">
+              <div class="ecard-info-box" style="display:flex; justify-content:space-between; align-items:center; padding:6px 12px">
+                <span class="ecard-info-label" style="margin:0">Father Name:</span>
+                <span class="ecard-info-value" id="backFather">—</span>
+              </div>
+              <div class="ecard-info-box" style="display:flex; justify-content:space-between; align-items:center; padding:6px 12px">
+                <span class="ecard-info-label" style="margin:0">Qualification:</span>
+                <span class="ecard-info-value" id="backQual">—</span>
+              </div>
+              <div class="ecard-info-box" style="display:flex; justify-content:space-between; align-items:center; padding:6px 12px">
+                <span class="ecard-info-label" style="margin:0">Contact No:</span>
+                <span class="ecard-info-value" id="backPhone">—</span>
+              </div>
+            </div>
+            <div class="back-notice-box">
+              This digital pass is securely linked to the FATA University database. Any misuse or duplication is strictly prohibited.
+            </div>
+          </div>
+          <div class="ecard-footer">
+            <div class="ecard-date-box" style="text-align:left">
+              <span class="ecard-date-label">Check-in Date</span>
+              <span class="ecard-date-value" id="backJoinDate">—</span>
+            </div>
+            <div class="ecard-date-box" style="text-align:right">
+              <span class="ecard-date-label">Validity</span>
+              <span class="ecard-date-value" id="backExpiry" style="color:#ffb3b3;">—</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flip-hint"><i class="fas fa-sync-alt"></i> Tap card to flip and show QR code</div>
+
+    <div class="action-panel" style="margin-top: 24px; justify-content: center;">
+      <button class="action-btn secondary" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <button class="action-btn primary" onclick="flipCard()">
+        <i class="fas fa-sync"></i> Flip Card
+      </button>
+    </div>
+
+  </div>
+
+  <script src="../assets/js/faculty_ecard.js"></script>
+</body>
+
+</html>

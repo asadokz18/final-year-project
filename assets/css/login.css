@@ -1,0 +1,258 @@
+/* ============================================
+   FATA University Hostel - Login Page CSS
+   ============================================ */
+
+.site-header {
+  background: linear-gradient(135deg, #1e4520, #326a33);
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.site-header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.header-brand img {
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  object-fit: cover;
+}
+
+.header-brand span {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-nav a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 7px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.header-nav a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.header-nav .btn-home {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.header-nav .btn-home:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ---- MAIN CONTENT ---- */
+.login-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 430px;
+  animation: fadeUp 0.5s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -- login card -- */
+.login-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 34px 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.login-logo img {
+  width: 68px;
+  height: 68px;
+  margin: auto;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  object-fit: cover;
+}
+
+.login-logo h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+
+.login-logo p {
+  font-size: 0.85rem;
+}
+
+.forgot-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+
+.forgot-link:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 4px;
+}
+
+.login-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(50, 106, 51, 0.35);
+}
+
+.login-btn:disabled {
+  opacity: 0.7;
+  transform: none;
+  cursor: not-allowed;
+}
+
+.divider {
+  text-align: center;
+  position: relative;
+  margin: 20px 0 16px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider span {
+  position: relative;
+  background: #fff;
+  padding: 0 12px;
+}
+
+.register-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.register-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px;
+  border-radius: 8px;
+  font-size: 0.87rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: 2px solid;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.register-btn.student {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: transparent;
+}
+
+.register-btn.student:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.register-btn.faculty {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: transparent;
+}
+
+.register-btn.faculty:hover {
+  background: var(--orange);
+  color: #fff;
+}
+
+/* ---- FOOTER ---- */
+.site-footer {
+  background: #1C2331;
+  padding: 14px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.8rem;
+}
+
+.site-footer a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: #fff;
+}
