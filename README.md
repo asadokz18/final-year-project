@@ -188,14 +188,6 @@ define('DB_NAME', 'hostel_db');
 http://localhost/hostel/
 ```
 
-## Default Admin Login
-
-| Field | Value |
-| --- | --- |
-| Username | `admin_hostel` |
-| Email | `asadokz18@gmail.com` |
-| Password | `admin123` |
-
 Change the default password before using the system in production.
 
 ## Main Features
